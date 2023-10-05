@@ -1,0 +1,79 @@
+
+<!-- <form action="", method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">register</button>
+</form> -->
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title> sign-up / sign-in form</title>
+  <link rel="stylesheet" href="{% static 'sign-up/style.css' %}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="wrapper">
+  <img src="{% static 'img/desktop.png' %}" alt="">
+  <div class="container">
+    <div class="sign-up-container">
+      <form action = "", method="POST">
+        {% csrf_token %}
+        <h1>Create Account</h1>
+        {{form.username}}
+        {{form.email}}
+        {{form.password1}}
+        {{form.password2}}
+
+
+        {% if form.errors %}
+        <div class = "alert  aler-danger">
+            <strong>{{form.errors}}</strong>
+        </div>
+        {% endif %}
+        <div class="social-links">
+          <div>
+            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          </div>
+          <div>
+            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+          </div>
+          <div>
+            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <span>or use your email for registration</span>
+        <!-- <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password"> -->
+        <button type="submit" class="form_btn">Sign Up</button>
+      </form>
+    </div>
+    <div class="sign-in-container">
+      <img src="{% static 'img/dd3.png' %}" alt="">
+    </div>
+    <div class="overlay-container">
+      <div class="overlay-left">
+        <!-- <img src="{% static 'img/dd3.png' %}" alt=""> -->
+        <h1>قبلا ثبت نام کردی؟</h1>
+        <!-- <button formaction="{% url 'userauths:sign-in' %}" id="" class="">ورود کن</button> -->
+        <a class="a1" href="{% url 'userauths:sign-in' %}">ورود</a>
+      </div>
+      <div class="overlay-right">
+        <h1>Hello, Friend</h1>
+        <p>Enter your personal details and start journey with us</p>
+        <button id="signUp" class="overlay_btn">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- partial -->
+  <script  src="{% static 'sign-up/script.js' %}"></script>
+
+</body>
+</html>
