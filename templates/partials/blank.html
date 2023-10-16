@@ -19,7 +19,7 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js">
     <!-- Libraries Stylesheet -->
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
 
@@ -70,16 +70,20 @@
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
-                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">DV</span>planner</h1>
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><img src="{% static 'img/frame1.png' %}" alt="">planner</h1>
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <form action="">
+                <form action="{% url 'core:search' %}" method="GET">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو">
+                        <input type="text" class="form-control" placeholder="جستجو" name="q">
+                        &nbsp;
+                        &nbsp;
                         <div class="input-group-append">
+                            &nbsp;
                             <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
+                                &nbsp;
+                                <button class="fa fa-search" type="submit" ></button>
                             </span>
                         </div>
                     </div>
@@ -92,7 +96,7 @@
                 </a>
                 <a href="" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span class="badge cart-items-count">{{ request.session.cart_data_obj|length }}</span>
                 </a>
             </div>
         </div>
@@ -122,7 +126,7 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             
-                            <a href="{% url 'core:category-list' %}" class="nav-item nav-link active">Home</a>
+                            <a href="{% url 'core:index' %}" class="nav-item nav-link active">Home</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">category</a>
                                 <div class="dropdown-menu rounded-0 m-0">
@@ -281,6 +285,15 @@
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/function.js' %}"></script>
+    <script>
+        (function() {
+      var target = $("#tableFixed");
+      $("#tableLista").scroll(function() {
+        target.prop("scrollTop", this.scrollTop)
+              .prop("scrollLeft", this.scrollLeft);
+      });
+    })();
+    </script>
 
 
 </body>

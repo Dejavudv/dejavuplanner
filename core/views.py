@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import  JsonResponse
 from taggit.models import Tag
 from core.models import *
-from math import prod
+
 from django.db.models import Avg
 from core.forms import ProductReviewForm
-from stripe import review
+from django.template.loader import render_to_string
 # Create your views here.
 def index(request):
     # product = Product.objects.all().order_by("-id")
@@ -82,9 +82,16 @@ def product_detail_view(request, pid):
     # product review form 
     review_form = ProductReviewForm()
 
+    make_review = True
+    if request.user.is_authenticated:
+        user_review_count = ProductReview.objects.filter(user = request.user, product=product).count()
+
+        if user_review_count > 0:
+            make_review = False
 
     context = {
         "product": product,
+        "make_review": make_review,
         "p_image": p_image,
         "products": products,
         "reviews": reviews,
@@ -143,6 +150,83 @@ def ajax_add_review(request, pid):
         'average_reviews': average_reviews,
         }
     )
+
+
+
+def search_view(request):
+    query = request.GET.get("q")
+
+    products = Product.objects.filter(title__icontains=query).order_by("-date")
+
+    context = {
+        "products": products,
+        "query": query,
+    }
+
+    return render(request, "core/search.html", context)
+
+
+def filter_product(request):
+    categories = request.GET.getlist("category[]")
+    # vendors = request.GET.getlist("vendor[]")
+    # و بقیه فبتر ها مانند وندور
+    products = Product.objects.filter(product_status="published").order_by("-id").distinct()
+
+    if len(categories) > 0:
+        products = products.filter(category__id__in=categories).distinct()
+
+    # if len(vendors) > 0:
+    #     products = products.filter(vendor__id__in=vendors).distinct()
+
+    data = render_to_string("core/async/product-list.html",{"products": products})
+    return JsonResponse({"data":data})
+
+
+
+def add_to_cart(request):
+    cart_product = {}
+
+    cart_product[str(request.GET['id'])] = {
+        'title': request.GET['title'],
+        'qty': request.GET['qty'],
+        'price': request.GET['price'],
+        'image': request.GET['image'],
+        'pid': request.GET['pid'],
+
+    }
+
+    if 'cart_data_obj' in request.session:
+        if str(request.GET['id']) in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            cart_data[str(request.GET['id'])]['qty'] = int(cart_product[str(request.GET['id'])]['qty'])
+            cart_data.update(cart_data)
+            request.session['cart_data_obj'] = cart_data
+
+        else:
+            cart_data = request.session['cart_data_obj']
+            cart_data.update(cart_product)
+            request.session['cart_data_obj'] = cart_data
+
+    else:
+        request.session['cart_data_obj'] = cart_product
+    return JsonResponse({"data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj'])})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

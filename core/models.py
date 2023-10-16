@@ -281,7 +281,7 @@ class ProductReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name="reviews")
     review = models.TextField()
-    rating = models.IntegerField(choices=RATING, default= None)
+    rating = models.IntegerField(choices=RATING, default= 5)
     date = models.DateTimeField(auto_now_add=True)
 
 
