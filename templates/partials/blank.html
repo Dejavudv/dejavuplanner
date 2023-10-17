@@ -25,7 +25,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"></link>
     <style>
         body 
         {font-family: 'Times New Roman', Times, serif;};
@@ -83,18 +84,15 @@
                             &nbsp;
                             <span class="input-group-text bg-transparent text-primary">
                                 &nbsp;
-                                <button class="fa fa-search" type="submit" ></button>
+                                <button class="fa fa-search" style="background-color: white; border: none; " type="submit" ></button>
                             </span>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
-                <a href="" class="btn border">
+                
+                <a href="{% url 'core:cart' %}" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge cart-items-count">{{ request.session.cart_data_obj|length }}</span>
                 </a>
@@ -149,7 +147,7 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">سبد خرید</a>
                                 <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="" class="dropdown-item">سبد خرید</a>
+                                    <a href="{% url 'core:cart' %}" class="dropdown-item">سبد خرید</a>
                                     <a href="" class="dropdown-item">تکمیل خرید</a>
                                 </div>
                             </div>

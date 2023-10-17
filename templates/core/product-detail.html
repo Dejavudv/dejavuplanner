@@ -198,7 +198,7 @@
                             <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary text-center" value="1" id="product-quantity">
+                        <input type="text" class="form-control bg-secondary text-center product-quantity-{{product.id}}" value="1" id="product-quantity">
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-plus">
                                 <i class="fa fa-plus"></i>
@@ -208,7 +208,8 @@
                     <div>
                         <!-- <input type="hidden" name="" id="" class="product-id" value="{{product.id}}">
                         <input type="hidden" value="{{product.title}}" class="product-title"  name="" id=""> -->
-                        <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{product.id}}">
+                        
+                        <!-- <input type="hidden" value="" id="product-quantity" class="product-quantity-{{product.id}}"> -->
                         <input type="hidden" class="product-pid-{{product.id}}" value="{{product.pid}}">
                         <input type="hidden" class="product-image-{{product.id}}" value="{{product.image.url}}">
                         <input type="hidden" class="product-id-{{product.id}}" value="{{product.id}}">
@@ -481,17 +482,12 @@
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="{% url 'core:product-detail' p.pid %}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                            <a href="{% url 'core:product-detail' p.pid %}" class="btn btn-sm text-dark p-0 text-center"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                             
 
-                            <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{p.id}}">
-                            <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
-                            <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
-                            <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
-                            <input type="hidden" class="product-title-{{p.id}}" value="{{p.title}}">
-                            <button  class="btn btn-sm text-dark p-0 add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</button>
-
+                            
                         </div>
+                        
                     </div>
                     {% endfor %}
                 </div>

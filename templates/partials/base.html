@@ -77,20 +77,17 @@
                 <form action="{% url 'core:search' %}" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو" name="q">
-                        <div class="input-group-append">
+                        <div class="input-group-append ">
                             
-                                <button class="fa fa-search" type="submit" ></button>
+                                <button class="fa fa-search" style="background-color: white; border: none; " type="submit" ></button>
                             
                         </div>
                     </div>
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
-                <a href="" class="btn border">
+            
+                <a href="{% url 'core:cart' %}" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge cart-items-count">{{ request.session.cart_data_obj|length }}</span>
                 </a>
@@ -144,7 +141,7 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">سبد خرید</a>
                                 <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="" class="dropdown-item">سبد خرید</a>
+                                    <a href="{% url 'core:cart' %}" class="dropdown-item">سبد خرید</a>
                                     <a href="" class="dropdown-item">تکمیل خرید</a>
                                 </div>
                             </div>
