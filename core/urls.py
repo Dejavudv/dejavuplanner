@@ -20,7 +20,8 @@ urlpatterns = [
     path("cart/", cart_view, name="cart"),
     path("delete-from-cart/", delete_item_from_cart, name="delete-from-cart"),
     path("update-cart/", update_cart, name="update-cart"),
-
+    path("checkout/", checkout_view, name="checkout"),
+    path("dashboard/", customer_dashboard, name="dashboard"),
 
 
 

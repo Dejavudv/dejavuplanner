@@ -146,7 +146,7 @@ JAZZMIN_SETTINGS = {
 
 }
 
-
+LOGIN_URL = "userauths:sign-in"
 
 AUTH_USER_MODEL = 'userauths.User'
 

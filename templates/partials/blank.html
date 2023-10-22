@@ -96,6 +96,10 @@
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge cart-items-count">{{ request.session.cart_data_obj|length }}</span>
                 </a>
+                <a href="{% url 'core:dashboard' %}" class="btn border">
+                    <i class="fas fa-user text-primary"></i>
+                    <span class="badge cart-items-count"></span>
+                </a>
             </div>
         </div>
     </div>
@@ -148,7 +152,7 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">سبد خرید</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="{% url 'core:cart' %}" class="dropdown-item">سبد خرید</a>
-                                    <a href="" class="dropdown-item">تکمیل خرید</a>
+                                    <a href="{% url 'core:checkout' %}" class="dropdown-item">تکمیل خرید</a>
                                 </div>
                             </div>
                             <a href="" class="nav-item nav-link">تماس با ما</a>

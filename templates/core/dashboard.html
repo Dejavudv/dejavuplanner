@@ -40,11 +40,43 @@
                 <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
                 <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
             </div>
+            <div class="">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>order</th>
+                            <th>date</th>
+                            <th>status</th>
+                            <th>paid status</th>
+                            <th>total</th>
+                            <th>action</th>
+                        </tr>
+
+                    </thead>
+                    <tbpdy>
+                        {% for o in orders %}
+                        <tr>
+                            <td>invoice_no-{{o.id}}</td>
+                            <td>{{o.order_date}}</td>
+                            <td>{{o.product_status|title}}</td>
+                            {% if o.paid_status == True %}
+                            <td class="fas fa-check"></td>
+                            {% else %}
+                            <td class="fas fa-xmark"></td>
+                            {% endif %}
+                            
+                            <td>{{o.price}}</td>
+                            <td><a href="">view</a></td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
 </div>
 </div>
 </div>
 {% endblock content %}
-
-

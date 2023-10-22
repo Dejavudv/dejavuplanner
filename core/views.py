@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.db.models import Avg
 from core.forms import ProductReviewForm
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     # product = Product.objects.all().order_by("-id")
@@ -168,15 +169,32 @@ def search_view(request):
 
 def filter_product(request):
     categories = request.GET.getlist("category[]")
-    # vendors = request.GET.getlist("vendor[]")
+    vendors = request.GET.getlist("Vendor[]")
+    typecategory = request.GET.getlist("typecategory[]")
+    sizecategory = request.GET.getlist("sizecategory[]")
+    tagcategory = request.GET.getlist("tagcategory[]")
+    colorcategory = request.GET.getlist("colorcategory[]")
+    languagecategory = request.GET.getlist("languagecategory[]")
     # و بقیه فبتر ها مانند وندور
     products = Product.objects.filter(product_status="published").order_by("-id").distinct()
 
     if len(categories) > 0:
         products = products.filter(category__id__in=categories).distinct()
 
-    # if len(vendors) > 0:
-    #     products = products.filter(vendor__id__in=vendors).distinct()
+    if len(vendors) > 0:
+        products = products.filter(Vendor__id__in=vendors).distinct()
+
+    if len(typecategory) > 0:
+        products = products.filter(typecategory__id__in=typecategory).distinct()
+    if len(sizecategory) > 0:
+        products = products.filter(sizecategory__id__in=sizecategory).distinct()
+    if len(tagcategory) > 0:
+        products = products.filter(tagcategory__id__in=tagcategory).distinct()
+    if len(colorcategory) > 0:
+        products = products.filter(colorcategory__id__in=colorcategory).distinct()
+    if len(languagecategory) > 0:
+        products = products.filter(languagecategory__id__in=languagecategory).distinct()
+
 
     data = render_to_string("core/async/product-list.html",{"products": products})
     return JsonResponse({"data":data})
@@ -262,16 +280,28 @@ def update_cart(request):
 
 
 
+def checkout_view(request):
+
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+        return render(request, "core/checkout.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
 
 
 
 
+@login_required
+def customer_dashboard(request):
+    orders = CartOrder.objects.filter(user=request.user).order_by("-id")
+    context = {
+        "orders": orders
+    }
+    return render(request, "core/dashboard.html", context)
 
 
 
 
-
-
-
-
-
+# def order_detail(request, id):
+#     order = CartOrderItems.objects.get(user=request.user, id=id)
+#     products = CartOrderProducts.objects.filter

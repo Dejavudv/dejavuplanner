@@ -61,10 +61,86 @@ class Category(models.Model):
     
     def __str__(self):
         return self.title
+
+
+# ####################################################
+
+
+class typeCategory(models.Model):
+    typecid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "cat", alphabet = "abcdefgh12345")
+    title = models.CharField(max_length=100, default="planner")
+    image = models.ImageField(upload_to="typecategory", default="category.jpg", blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "typeCategories"
+
+    def typecategory_image(self):
+        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
+    
+    def __str__(self):
+        return self.title
     
 
-class tags(models.Model):
-    pass
+class sizeCategory(models.Model):
+    sizecid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "cat", alphabet = "abcdefgh12345")
+    title = models.CharField(max_length=100, default="planner")
+    image = models.ImageField(upload_to="sizecategory", default="category.jpg" , blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "sizeCategories"
+
+    def sizecategory_image(self):
+        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
+    
+    def __str__(self):
+        return self.title
+    
+
+class tagCategory(models.Model):
+    tagcid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "cat", alphabet = "abcdefgh12345")
+    title = models.CharField(max_length=100, default="planner")
+    image = models.ImageField(upload_to="tagcategory", default="category.jpg" , blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "tagCategories"
+
+    def tagcategory_image(self):
+        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
+    
+    def __str__(self):
+        return self.title
+    
+
+class colorCategory(models.Model):
+    colorcid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "cat", alphabet = "abcdefgh12345")
+    title = models.CharField(max_length=100, default="planner")
+    image = models.ImageField(upload_to="colorcategory", default="category.jpg" , blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "colorCategories"
+
+    def colorcategory_image(self):
+        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
+    
+    def __str__(self):
+        return self.title
+    
+
+class languageCategory(models.Model):
+    languagecid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "cat", alphabet = "abcdefgh12345")
+    title = models.CharField(max_length=100, default="planner")
+    image = models.ImageField(upload_to="languagecategory", default="category.jpg" , blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "languageCategories"
+
+    def languagecategory_image(self):
+        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
+    
+    def __str__(self):
+        return self.title
+
+
 
     
 class Vendor(models.Model):
@@ -98,72 +174,18 @@ class Vendor(models.Model):
 
 
 
-##############################  sub product    ################################
-
-# class Sub_Product(models.Model):
-#     spid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "sprd", alphabet = "abcdefgh12345")
-
-#     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-#     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="subcategory")
-#     Vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
-#     # product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name="subproduct")   
-#     title = models.CharField(max_length=100, default="fresh pear")
-#     image = models.ImageField(upload_to = user_directory_path, default="product.jpg")
-#     description = models.TextField(null=True, blank=True, default="this is the product")
-#     more_description = models.TextField(null=True, blank=True, default="this is more product")
-#     information = models.TextField(null=True, blank=True, default="this is the information part")
-
-
-#     price = models.DecimalField(max_digits=999999999999999999, decimal_places=3, default="100,000")
-#     old_price = models.DecimalField(max_digits=999999999999999999, decimal_places=3, default="200,000")
-
-#     specifications = models.TextField(null=True, blank=True, default="")
-#     # tags = models.ForeignKey(tags, on_delete=models.SET_NULL, null=True)
-#     product_status = models.CharField(choices= STATUS, max_length=10, default="in_review")
-
-#     status = models.BooleanField(default=True)
-#     in_stock = models.BooleanField(default=True)
-#     featured = models.BooleanField(default= False)
-#     digital = models.BooleanField(default= False)
-
-#     sku = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "sku", alphabet = "1234567890")
-
-#     date = models.TimeField(auto_now_add=True)
-#     updated = models.TimeField(null=True, blank=True)
-
-#     class Meta:
-#         verbose_name_plural = " sub products"
-
-#     def product_image(self):
-#         return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
-    
-#     def __str__(self):
-#         return self.title
-    
-#     def get_precentage(self):
-#         # new_price = (self.price / self.old_price) * 100
-#         new_price = (((self.old_price - self.price)*100)/self.old_price)
-#         return new_price
-    
-
-
-
-
-# class Sub_ProductImages(models.Model):
-#     images = models.ImageField(upload_to="Sub_product_images", default="product.jpg")
-#     subproduct = models.ForeignKey(Sub_Product ,on_delete=models.SET_NULL, null=True)
-#     date = models.DateTimeField(auto_now_add=True)
-
-#     class Meta:
-#         verbose_name_plural = "Sub Product Images"
-    
-######################################
+# ----------------------------------------------------
 class Product(models.Model):
     pid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "prd", alphabet = "abcdefgh12345")
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
     Vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
+    typecategory = models.ForeignKey(typeCategory, on_delete=models.SET_NULL, null=True, related_name="typecategory")
+    sizecategory = models.ForeignKey(sizeCategory, on_delete=models.SET_NULL, null=True, related_name="sizecategory")
+    tagcategory = models.ForeignKey(tagCategory, on_delete=models.SET_NULL, null=True, related_name="tagcategory")
+    colorcategory = models.ForeignKey(colorCategory, on_delete=models.SET_NULL, null=True, related_name="colorcategory")
+    languagecategory = models.ForeignKey(languageCategory, on_delete=models.SET_NULL, null=True, related_name="languagecategory")
 
     # sub_product = models.ForeignKey(Sub_Product, on_delete=models.SET_NULL, null=True)
     # products = models.ManyToManyField(Sub_Product)
