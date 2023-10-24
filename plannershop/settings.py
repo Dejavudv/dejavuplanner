@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # third party
     'taggit',
     'ckeditor',
-
+    # 'azbankgateways',
     #custom apps
     'core',
     'userauths',
@@ -166,3 +166,22 @@ CKEDITOR_CONFIGS = {
         ),
     }
 }
+
+
+# AZ_IRANIAN_BANK_GATEWAYS = {
+#    'GATEWAYS': {
+#        'ZARINPAL': {
+#            'MERCHANT_CODE': '<YOUR MERCHANT CODE>',
+#            'SANDBOX': 0,  # 0 disable, 1 active
+#        },
+#    },
+#    'IS_SAMPLE_FORM_ENABLE': True, # اختیاری و پیش فرض غیر فعال است
+#    'DEFAULT': 'ZARINPAL',
+#    'CURRENCY': 'IRR', # اختیاری
+#    'TRACKING_CODE_QUERY_PARAM': 'tc', # اختیاری
+#    'TRACKING_CODE_LENGTH': 16, # اختیاری
+#    'SETTING_VALUE_READER_CLASS': 'azbankgateways.readers.DefaultReader', # اختیاری
+#    'BANK_PRIORITIES': [], # اختیاری
+#    'IS_SAFE_GET_GATEWAY_PAYMENT': True, #اختیاری، بهتر است True بزارید.
+#    'CUSTOM_APP': None, # اختیاری 
+# }

@@ -129,9 +129,9 @@ blockquote {
 b,
 strong {
   font-weight: bolder;
-  color: green;
-  border: green;
-  background-color: lightgreen;
+  color: black;
+  /* border: green; */
+  /* background-color: lightgreen; */
   height: fit-content;
   border-radius: 25px;
 }
@@ -642,10 +642,10 @@ pre code {
 
 .row {
   display: flex;
-  flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
   /* BACKGROUND-COLOR: beige; */
+  flex-wrap: wrap;
 }
 
 
@@ -672,7 +672,6 @@ pre code {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-
 }
 
 .col {
@@ -2376,6 +2375,7 @@ textarea.form-control {
 
 .btn:not(:disabled):not(.disabled) {
   cursor: pointer;
+  align-content: center;
 }
 
 a.btn.disabled,

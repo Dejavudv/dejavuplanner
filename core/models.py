@@ -11,7 +11,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 
 STATUS_CHOICE = (
-    ("process", "Processing"),
+    ("processing", "Processing"),
     ("shipped", "Shipped"),
     ("delivered", "Delivered"),
 
@@ -199,8 +199,8 @@ class Product(models.Model):
     more_description = RichTextUploadingField(null=True, blank=True, default="this is more product")
     information = RichTextUploadingField(null=True, blank=True, default="this is the information part")
 
-    price = models.DecimalField(max_digits=999999999999999999, decimal_places=3, default="100,000")
-    old_price = models.DecimalField(max_digits=999999999999999999, decimal_places=3, default="200,000")
+    price = models.IntegerField()
+    old_price = models.IntegerField()
 
     specifications = models.TextField(null=True, blank=True, default="")
     tags = TaggableManager(blank=True)
@@ -260,15 +260,39 @@ class ProductImages(models.Model):
 ####################cart, order, orderitems and adress###################
 ####################cart, order, orderitems and adress###################
 
+class Adress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    adress = models.CharField(max_length=100, null= True)
+    mobile = models.CharField(max_length=100, null= True)
+
+    firstname = models.CharField(max_length=100, null= True)
+    lastname = models.CharField(max_length=100, null= True)
+    postcode = models.CharField(max_length=100, null= True)
+    stateadress = models.CharField(max_length=100, null= True)
+    city = models.CharField(max_length=100, null= True)
+
+    status = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = "adress"
+
+    def __str__(self):
+        return self.adress
+
+
+
+
+
 
 
 class CartOrder(models.Model):
+    
+    adress = models.ForeignKey(Adress, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete= models.CASCADE)
-    price = models.DecimalField(max_digits=999999999999999999, decimal_places=2, default="100,000")
+    price = models.IntegerField()
     paid_status = models.BooleanField(default=False)
     order_date = models.DateTimeField(auto_now_add=True)
     product_status = models.CharField(choices= STATUS_CHOICE, max_length=30, default="processing")
-
     class Meta:
         verbose_name_plural = "Cart Order"
 
@@ -280,17 +304,21 @@ class CartOrderItems(models.Model):
     invoice_no = models.CharField(max_length=200)
     product_status = models.CharField(max_length=200)
     item = models.CharField(max_length=200)
-    image = models.CharField(max_length=200)
+    image = models.ImageField(upload_to="cartorderitems", default="category.jpg" , blank=True, null=True)
     qty = models.IntegerField(default=0 )
-    price = models.DecimalField(max_digits=999999999999999999, decimal_places=2, default="100,000")
-    total = models.DecimalField(max_digits=999999999999999999, decimal_places=2, default="100,000")
+    price = models.IntegerField()
+    total = models.IntegerField()
 
 
     class Meta:
         verbose_name_plural = "Cart Order Items"
+
+    def cartorderitems_image(self):
+        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
+    
         
-    def order_img(self):
-        return mark_safe('<img src = "/media/%s"  width = "50" height="50" />' % (self.image))
+    # def order_img(self):
+        # return mark_safe('<img src = "/media/%s"  width = "50" height="50" />' % (self.image))
     
 
 ###########################product review whishlist adress########################################
@@ -332,17 +360,6 @@ class Wishlist(models.Model):
     def get_rating(self):
         return self.rating
     
-
-
-class Adress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    adress = models.CharField(max_length=100, null= True)
-    status = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name_plural = "adress"
-
-
 
 
 

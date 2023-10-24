@@ -1,0 +1,90 @@
+
+{% extends 'partials/blank.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 150px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">آدرس و اطلاعات ارسال</h1>
+            <div class="d-inline-flex">
+                <!-- <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0 px-2">-</p> -->
+                <p class="m-0">اطلاعات خود را دقیق وارد کنید</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8" >
+                <form action="" method="POST" class="checkoutinformation">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <h4 class="font-weight-semi-bold mb-4"> .فرم ادرس و اطلاعات ارسال را پر کنید</h4>
+                        <div class="row">
+                            
+                                
+                            <div class="col-md-6 form-group">
+                                <label>نام </label>
+                                <input type="text" placeholder="نام به فارسی" required="" class="form-control" id="firstname" name="checkoutfirstname">
+    
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>نام خانوادگی</label>
+                                <input type="text" placeholder="نام خانوادگی به فارسی" required="" class="form-control" name="checkoutlastname" id="lastname">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label>تلفن همرا</label>
+                                <input type="text" placeholder="09*********" required="" class="form-control" id="mobile" name="checkoutmobile">
+    
+                            </div>
+    
+                            <div class="col-md-6 form-group">
+                                <label>آدرس</label>
+                                <input type="text" placeholder="استان، شهر، منطقه، خیابون، محله، ساختمون، پلاک، طبقه، واحد" required="" class="form-control" id="adress" name="checkoutadress">
+    
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>استان</label>
+                                <input type="text" placeholder="استان" required="" class="form-control" id="stateadress" name="checkoutstateadress">
+    
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>شهر</label>
+                                <input type="text" placeholder="شهر" required="" class="form-control" id="city" name="checkoutcity">
+    
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>کدپستی</label>
+                                <input type="text" placeholder="کدپستی خود را به دقت وارد کنید" required="" class="form-control" id="postcode" name="checkoutpostcode">
+                            </div>
+                        
+                            &nbsp;
+                            &nbsp;
+                            <div class="col-md-12">
+                            <button class="btn btn-primary py-2 px-4" type="submit" >تکمیل خرید</button>
+                            </div> 
+                        </div>
+                    </div>
+                    
+                </form>
+                
+                
+                
+            </div>
+            
+            
+            
+            
+        </div>
+    </div>
+    <!-- Checkout End -->
+
+{% endblock content %}

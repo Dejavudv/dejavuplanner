@@ -19,7 +19,7 @@
 <body>
 <!-- partial:index.partial.html -->
 <div class="wrapper">
-  <img src="{% static 'img/desktop.png' %}" alt="">
+  <!-- <img src="{% static 'img/desktop.png' %}" alt=""> -->
   <div class="container">
     <div class="sign-up-container">
       <form action = "", method="POST">
@@ -34,7 +34,7 @@
             <strong>{{form.errors}}</strong>
         </div>
         {% endif %} -->
-        <div class="social-links">
+        <!-- <div class="social-links">
           <div>
             <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
           </div>
@@ -44,8 +44,8 @@
           <div>
             <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
           </div>
-        </div>
-        <span>or use your email for registration</span>
+        </div> -->
+        <span></span>
         <!-- <input type="text" required name="" placeholder="Name"> -->
         <input type="email" required name="email" placeholder="Email">
         <input type="password" required name="password" placeholder="Password">
@@ -72,3 +72,5 @@
 
 </body>
 </html>
+
+

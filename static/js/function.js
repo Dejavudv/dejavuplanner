@@ -200,6 +200,71 @@ $(document).ready(function (){
     })
 
 
+    // making default adresses
+    $(document).on("click", ".make-default-adress", function(){
+        let id = $(this).attr("data-adress-id")
+        let this_val = $(this)
+
+        console.log("id is:", id);
+        console.log("element is:", this_val);
+
+        $.ajax({
+            url: "/make-default-adress",
+            data: {
+                "id":id
+            },
+            dataType: "json",
+            success: function(response){
+                console.log("adress made default...");
+                if (response.boolean == true){
+                    $(".check").hide()
+                    $(".action_btn").show()
+
+                    $(".check"+id).show()
+                    $(".button"+id).hide()
+
+                }
+            }
+        })
+    })
+
+    $(document).on("submit", "#contactFormajax", function(e){
+        e.preventDefault()
+        console.log("submited...");
+
+        let full_name = $("#full_name").val()
+        let email = $("#email").val()
+        let phone = $("#phone").val()
+        let subject = $("#subject").val()
+        let message = $("#message").val()
+
+        console.log("name:", full_name);
+        console.log("name:", email);
+        console.log("name:", phone);
+        console.log("name:", subject);
+        console.log("name:", message);
+
+        $.ajax({
+            url: "/ajax-contact-form",
+            data: {
+                "full_name": full_name,
+                "email": email,
+                "phone": phone,
+                "subject": subject,
+                "message": message,
+            },
+            dataType:"json",
+            beforeSend: function(){
+                console.log("sending data to server...");
+            },
+            success: function(res){
+                console.log("sent data to server");
+                $("#contactFormajax").hide()
+                $("#message-response").html("message sent successfully")
+            }
+        })
+    })
+    
 })
 
 

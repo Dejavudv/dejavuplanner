@@ -2,9 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import  JsonResponse
 from taggit.models import Tag
 from core.models import *
+from userauths.models import *
 from django.contrib import messages
 from django.db.models import Avg
-from core.forms import ProductReviewForm
+from core.forms import *
+from userauths.forms import *
+
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -237,7 +240,7 @@ def cart_view(request):
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price'])
+            cart_total_amount += int(item['qty']) * int(item['price'])
         return render(request, "core/cart.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     else:
         messages.warning(request, "your cart is empty")
@@ -254,7 +257,7 @@ def delete_item_from_cart(request):
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price'])
+            cart_total_amount += int(item['qty']) * int(item['price'])
 
     context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     return JsonResponse({"data": context, 'totalcartitems': len(request.session['cart_data_obj'])})
@@ -271,7 +274,7 @@ def update_cart(request):
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price'])
+            cart_total_amount += int(item['qty']) * int(item['price'])
 
     context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     return JsonResponse({"data": context, 'totalcartitems': len(request.session['cart_data_obj'])})
@@ -279,14 +282,105 @@ def update_cart(request):
 
 
 
-
+@login_required
 def checkout_view(request):
+    adress = Adress.objects.filter(user=request.user)
+
+    cart_total_amount = 0
+    total_amount = 0
+    # checking if cart_data_obj session exist
+    if 'cart_data_obj' in request.session:
+
+        # getting total amount for the payment
+        for p_id, item in request.session['cart_data_obj'].items():
+            total_amount += int(item['qty']) * int(item['price'])
+        # creating order object
+        order = CartOrder.objects.create(
+            user=request.user,
+            price = total_amount,
+
+        )
+        # getting total amount for the cart
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * int(item['price'])
+
+            cart_order_products = CartOrderItems.objects.create(
+                order=order,
+                invoice_no="INVOICE_NO-"+str(order.id),
+                item=item['title'],
+                image=item['image'],
+                qty=item['qty'],
+                price=item['price'],
+                total=int(item['qty']) * int(item['price']),
+
+            )
+
 
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price'])
-        return render(request, "core/checkout.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
+            cart_total_amount += int(item['qty']) * int(item['price'])
+
+
+        # try:
+        #     active_adress = Adress.objects.get(user=request.user, status= True)
+        # except:
+        #     messages.warning(request, "there are multiple adresss, only one should be active. select from dashboard")
+        #     active_adress+ None
+        return render(request, "core/checkout.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount, 'adress':adress })
+
+def checkout_information_view(request):
+    orders = CartOrder.objects.filter(user=request.user).order_by("-id")
+    adressfield = Adress.objects.filter(user=request.user)
+    
+    
+
+
+    if request.method == "POST":
+        user = request.user
+        checkoutadress = request.POST["checkoutadress"]
+        mobile = request.POST["checkoutmobile"]
+        firstname = request.POST["checkoutfirstname"]
+        lastname = request.POST["checkoutlastname"]
+        postcode = request.POST["checkoutpostcode"]
+        stateadress = request.POST["checkoutstateadress"]
+        city = request.POST["checkoutcity"]
+
+
+        new_adress = Adress.objects.create(
+            
+            adress=checkoutadress,
+            mobile=mobile,
+            firstname=firstname,
+            lastname=lastname,
+            postcode=postcode,
+            stateadress=stateadress,
+            city=city,
+            user=user,
+        )
+        new_adress.save()
+        messages.success(request, "adress added successfuly")
+        return redirect("core:checkout")
+    else:
+        print("error")
+    # user_profile = Profile.objects.get(user=request.user)
+    context = {
+        "orders": orders,
+        "adressfield": adressfield,
+        # "user_profile": user_profile,
+        
+        
+
+
+    }
+
+    return render(request, 'core/checkout-information.html', context)
+
+def payment_compeleted_view(request):
+    return render(request, 'core/payment-compeleted.thml')
+
+def payment_failed_view(request):
+    return render(request, 'core/payment-failed.thml')
 
 
 
@@ -294,14 +388,86 @@ def checkout_view(request):
 @login_required
 def customer_dashboard(request):
     orders = CartOrder.objects.filter(user=request.user).order_by("-id")
+    adress = Adress.objects.filter(user=request.user)
+    
+    
+
+    if request.method == "POST":
+        adress = request.POST.get("adress")
+        mobile = request.POST.get("mobile")
+
+        new_adress = Adress.objects.create(
+            user=request.user,
+            adress=adress,
+            mobile=mobile,
+        )
+        messages.success(request, "adress added successfuly")
+        return redirect("core:dashboard")
+    else:
+        print("error")
+    user_profile = Profile.objects.get(user=request.user)
+
+
+
+    
+
+
+
     context = {
-        "orders": orders
+        "orders": orders,
+        "adress": adress,
+        "user_profile": user_profile,
+        
+        
+
+
     }
+
+
     return render(request, "core/dashboard.html", context)
 
 
 
 
-# def order_detail(request, id):
-#     order = CartOrderItems.objects.get(user=request.user, id=id)
-#     products = CartOrderProducts.objects.filter
+
+
+
+def order_detail(request, id):
+    order = CartOrder.objects.get(user=request.user, id=id)
+    products = CartOrderItems.objects.filter(order=order)
+    context = {
+        "products": products
+    }
+    return render(request, "core/orderdetail.html", context)
+
+
+def make_adress_default(request):
+    id = request.GET["id"]
+    Adress.objects.update(status=False)
+    Adress.objects.filter(id=id).update(status=True)
+    return JsonResponse({"boolean": True})
+
+
+
+def contact_view(request):
+    return render(request, "core/contact.html")
+
+def ajax_contact_form(request):
+    full_name = request.GET['full_name']
+    email = request.GET['email']
+    phone = request.GET['phone']
+    subject = request.GET['subject']
+    message = request.GET['message']
+
+    contact = ContactUs.objects.create(
+        full_name = full_name,
+        email = email,
+        phone = phone,
+        subject = subject,
+        message = message,
+    )
+    data = {
+        "bool": True,
+        "message": "message sent successfully"
+    }
+    return JsonResponse({"data":data})

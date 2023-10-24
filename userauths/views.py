@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
-from userauths.forms import  UserRegisterForm
+from userauths.forms import  *
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.conf import settings
 from userauths.models import User
+from core.models import *
 
 
 # User = settings.AUTH_USER_MODEL
@@ -77,3 +78,55 @@ def logout_view(request):
 
     return redirect("core:index")
     # return render(request, "userauths/sign-in.html")
+
+
+def profile_update(request):
+    form = ProfileForm()
+    user_profile = Profile.objects.get(user=request.user)
+    orders = CartOrder.objects.filter(user=request.user).order_by("-id")
+    adress = Adress.objects.filter(user=request.user)
+    
+    
+
+    if request.method == "POST":
+        adress = request.POST.get("adress")
+        mobile = request.POST.get("mobile")
+
+        new_adress = Adress.objects.create(
+            user=request.user,
+            adress=adress,
+            mobile=mobile,
+        )
+        messages.success(request, "adress added successfuly")
+        return redirect("core:dashboard")
+    else:
+        print("error")
+    user_profile = Profile.objects.get(user=request.user)
+
+    profile = Profile.objects.get(user=request.user)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.user = request.user
+            new_form.save()
+            messages.success(request, "profile updated successfully.")
+            return redirect("core:dashboard")
+        
+        else:
+            form = ProfileForm(instance=profile)
+
+
+
+
+    context = {
+        
+        "form": form,
+        "profile": profile,
+        "orders": orders,
+        "adress": adress,
+        "user_profile": user_profile,
+
+
+    }
+    return render(request, "userauths/profile-edit.html", context)

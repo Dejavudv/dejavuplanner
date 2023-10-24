@@ -1,0 +1,151 @@
+{% extends 'partials/blank.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <h3>edit profile</h3>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <!-- {% if profile.image %} -->
+                <!-- <img class="rounded-circle mt-5" width="150px" height="150px"   style="object-fit: cover; border-radius: 50%;" src="{{profile.image.url}}"> -->
+
+                <!-- {% else %} -->
+                <img class="rounded-circle mt-5" width="150px" height="150px"   style="object-fit: cover; border-radius: 50%;" src="{% static 'img/download.jpg' %}">
+                <!-- {% endif %} -->
+                &nbsp;
+                <!-- <span class="font-weight-bold"><input type="text" value="اسم:{{user_profile.full_name}}" class="form-control"></span>
+                <span class="text-black-50"><input type="text" value="ایمیل:{{user_profile.email}}" class="form-control"></span>
+                <span class="font-weight-bold"><input type="text" value="بایو:{{user_profile.bio}}" class="form-control"></span>
+                <span class="font-weight-bold"><input type="text" value="تلفن همراه:{{user_profile.phone}}" class="form-control"></span>
+                 -->
+                 <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">{{form.full_name}}</div>
+                    <div class="mb-3">{{form.bio}}</div>
+                    <div class="mb-3">{{form.phone}}</div>
+                    <!-- <div class="mb-3">{{form.image}}</div> -->
+                    <button type="submit" class="btn btn-primary">ذخیره</button>
+
+
+                 </form>
+                
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <!-- <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
+                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
+                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
+                    <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                    <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                    <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                    <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
+                    <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
+                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
+                </div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div> -->
+
+
+                <div>
+                    <form class="mb-4" action="" method="POST">
+                        {% csrf_token %}
+                        <div class="card-header">
+                            <h5>add adress</h5>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <input type="text" placeholder="adress" required="" class="form-control" name="adress">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" placeholder="mobile", required="" class="form-control" name="mobile">
+
+                            </div>
+                        
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary font-weight-bold" name="submit" value="submit">save adress</button>
+                        </div>
+                    </form>
+                </div>
+
+                {% for a in adress %}
+                <div>
+                    
+                    <h4 class="font-weight-bold mb-3">adress {{forloop.counter}}</h4>
+                    
+                    <p>{{a.adress}}</p>
+                    <p>{{a.mobile}}</p>
+                    
+                    {% if a.status %}
+                        <i data-adress-id="{{a.id}}" class="fas fa-check-circle check check{{a.id}}" ></i>
+                        <button data-adress-id="{{a.id}}" style="display: none;" class="btn btn-primary font-weight-bold make-default-adress button{{a.id}} action_btn">make default </button>
+                    {% else %}
+                        <i data-adress-id="{{a.id}}" class="fas fa-check-circle check check{{a.id}} " style="display: none;"></i>
+                        <button data-adress-id="{{a.id}}" class="btn btn-primary font-weight-bold make-default-adress button{{a.id}} action_btn">make default </button>
+                        
+                    {%endif%}
+                    <br>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
+                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
+                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+            </div>
+            <div class="">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>order</th>
+                            <th>date</th>
+                            <th>status</th>
+                            <th>paid status</th>
+                            <th>total</th>
+                            <th>action</th>
+                        </tr>
+
+                    </thead>
+                    <tbpdy>
+                        {% for o in orders %}
+                        <tr>
+                            <td>invoice_no-{{o.id}}</td>
+                            <td>{{o.order_date}}</td>
+                            <td>{{o.product_status|title}}</td>
+                            {% if o.paid_status == True %}
+                            <td class="fas fa-check"></td>
+                            {% else %}
+                            <td class="fas fa-xmark"></td>
+                            {% endif %}
+                            
+                            <td>{{o.price}}</td>
+                            <td><a href="{% url 'core:order-detail' o.id %}">view</a></td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock content %}

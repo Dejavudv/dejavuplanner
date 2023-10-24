@@ -40,30 +40,20 @@
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-dark" href="">سوال داری؟</a>
+                    <a class="text-dark" href="{% url 'core:contact' %}">سوال داری؟</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">کمک</a>
+                    <a class="text-dark" href="{% url 'core:contact' %}">کمک</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">پشتیبانی</a>
+                    <a class="text-dark" href="{% url 'core:contact' %}">پشتیبانی</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-dark px-2" href="">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="text-dark px-2" href="">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a class="text-dark px-2" href="">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a class="text-dark px-2" href="">
+                    
+                    <a class="text-dark px-2" href="https://instagram.com/dejavuplanner.ir?igshid=OGQ5ZDc2ODk2ZA==">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a class="text-dark pl-2" href="">
-                        <i class="fab fa-youtube"></i>
-                    </a>
+                    
                 </div>
             </div>
         </div>
@@ -93,7 +83,7 @@
                 </a>
                 <a href="{% url 'core:dashboard' %}" class="btn border">
                     <i class="fas fa-user text-primary"></i>
-                    <span class="badge cart-items-count"></span>
+                    <span class="badge "></span>
                 </a>
             </div>
         </div>
@@ -124,21 +114,23 @@
                             
                             <a href="{% url 'core:index' %}" class="nav-item nav-link active">Home</a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">category</a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">دسته بندی ها</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                     {% for c in categories %}
                                     <li><a href="{% url 'core:category-product-list' c.cid %}" class="dropdown-item">{{c.title}}</a></li>
                                     {% endfor %}
                                     <hr>
-                                    <li><a href="{% url 'core:category-list' %}" class="dropdown-item">all categories</a></li>
+                                    <li><a href="{% url 'core:category-list' %}" class="dropdown-item">تمام دسته بندی ها</a></li>
 
                                 </div>
                             </div>
                             <a href="{% url 'core:product-list' %}" class="nav-item nav-link">تمام محصولات</a>
-                            <a href="" class="nav-item nav-link">تست ها</a>
-                            <a href="" class="nav-item nav-link">پلنر</a>
+                            {% for c in category %}
+                            <a href="{% url 'core:category-product-list' c.cid %}" class="nav-item nav-link">{{c.title}}</a>
+                            {% endfor %}
+                            <!-- <a href="" class="nav-item nav-link">پلنر</a>
                             <a href="" class="nav-item nav-link">دفتر و ژورنال</a>
-                            <a href="" class="nav-item nav-link">اکسسوری</a>
+                            <a href="" class="nav-item nav-link">اکسسوری</a> -->
 
                             
                             
@@ -149,7 +141,7 @@
                                     <a href="{% url 'core:checkout' %}" class="dropdown-item">تکمیل خرید</a>
                                 </div>
                             </div>
-                            <a href="" class="nav-item nav-link">تماس با ما</a>
+                            <a href="{% url 'core:contact' %}" class="nav-item nav-link">تماس با ما</a>
                             
 
                             </div>
@@ -182,9 +174,9 @@
                             <img class="img-fluid" src="{% static 'img/test.jfif' %}" alt="Image">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">ارسال اولین خرید با ما</h4>
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3"> بهترین و مناسب ترین پلنر برا خودت رو پیدا کن</h4>
                                     <h3 class="display-4 text-white font-weight-semi-bold mb-4">دفتر برنامه ریزی شخصی سازی شده</h3>
-                                    <a href="" class="btn btn-light py-2 px-3">همین الان سفارش بده</a>
+                                    <a href="{% url 'core:product-list' %}" class="btn btn-light py-2 px-3"> از اینجا</a>
                                 </div>
                             </div>
                         </div>
@@ -193,8 +185,8 @@
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
                                     <h4 class="text-light text-uppercase font-weight-medium mb-3">ده درصد تخفیف</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">با یک تست کوتاه دفتر برنامه ریزی خودت رو طراحی کن</h3>
-                                    <a href="" class="btn btn-light py-2 px-3">همین الان سفارش بده</a>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">دفتر برنامه ریزی خودت رو طراحی کن</h3>
+                                    <a href="{% url 'core:product-list' %}" class="btn btn-light py-2 px-3">همین الان سفارش بده</a>
                                 </div>
                             </div>
                         </div>
@@ -214,7 +206,7 @@
             <div class="col-lg-3 d-none d-lg-block">
             
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0">Categories</h6>
+                    <h6 class="m-0">دسته بندی ها</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
                 <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
@@ -252,32 +244,27 @@
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>فروشگاه ما</a>
-                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>جزییات فروشگاه</a>
-                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>سبد خرید</a>
-                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>تکمیل خرید</a>
-                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>تماس با ما</a>
+                            <a class="text-dark mb-2" href="{% url 'core:index' %}"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="{% url 'core:product-list' %}"><i class="fa fa-angle-right mr-2"></i>فروشگاه ما</a>
+                            
+                            <a class="text-dark mb-2" href="{% url 'core:cart' %}"><i class="fa fa-angle-right mr-2"></i>سبد خرید</a>
+                            
+                            <a class="text-dark" href="{% url 'core:contact' %}"><i class="fa fa-angle-right mr-2"></i>تماس با ما</a>
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">
-                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                        <h5 class="font-weight-bold text-dark mb-4">فضای مجازی</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a class="text-dark px-2" href="">
+                            
+                            
+                            <a class="text-dark px-2" href="https://instagram.com/dejavuplanner.ir?igshid=OGQ5ZDc2ODk2ZA==">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a class="text-dark pl-2" href="">
-                                <i class="fab fa-youtube"></i>
-                            </a>
+                            
+                            
                         </div>
                     </div>
-                    <div class="col-md-4 mb-5">
+                    <!-- <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
                         <form action="">
                             <div class="form-group">
@@ -291,21 +278,20 @@
                                 <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
         <div class="row border-top border-light mx-xl-5 py-4">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-dark">
-                    &copy; <a class="text-dark font-weight-semi-bold" href="#">dejavuplanner.ir</a>. All Rights Reserved. Designed
-                    by
-                    <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com">bla bla</a>
+                    &copy; <a class="text-dark font-weight-semi-bold" href="#">dejavuplanner.ir</a>. All Rights Reserved. 
+                    <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com"></a>
                 </p>
             </div>
-            <div class="col-md-6 px-xl-0 text-center text-md-right">
+            <!-- <div class="col-md-6 px-xl-0 text-center text-md-right">
                 <img class="img-fluid" src="{% static 'img/payments.png' %}" alt="">
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Footer End -->
