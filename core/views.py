@@ -7,25 +7,65 @@ from django.contrib import messages
 from django.db.models import Avg
 from core.forms import *
 from userauths.forms import *
-
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+
+
+
+
+
+
+
+
+
 def index(request):
     # product = Product.objects.all().order_by("-id")
     products = Product.objects.filter(product_status= "published",featured = True)
     category = Category.objects.all()
+    categorynav = Category.objects.all()
+    
+
+    if request.method == "POST":
+        
+        about = request.POST["aboutjoboffer"]
+        email = request.POST["emailjoboffer"]
+        
+
+
+        new_job = JobOffer.objects.create(
+            
+            about=about,
+            email=email,
+            
+        )
+        new_job.save()
+        messages.success(request, "باتشکر")
+        return redirect("core:index")
+    else:
+        print("error")
+
+
     context = {
         "products": products,
         "categories": category,
+        "categorynav": categorynav,
+
     }
     return render(request, 'core/index.html', context)
 
 
 
-def blank(request):
 
-    return render(request, 'core/blank.html')
+def blank(request):
+    
+    categorynav = Category.objects.all()
+    context = {
+        
+        "categorynav": categorynav,
+
+    }
+    return render(request, 'core/blank.html', context)
+
 
 
 
@@ -39,12 +79,14 @@ def product_list_view(request):
 
 
 
+
 def category_list_view(request):
     category = Category.objects.all()
     context = {
         "categories": category
     }
     return render(request, 'core/category-list.html', context)
+
 
 
 
@@ -59,6 +101,7 @@ def category_product_list_view(request, cid):
 
 
 
+
 def custom_product_list(request):
 
     products = Product.objects.filter(product_status= "published")
@@ -69,6 +112,7 @@ def custom_product_list(request):
 
 
 
+
 def product_detail_view(request, pid):
     product = Product.objects.get(pid=pid)
 
@@ -76,7 +120,7 @@ def product_detail_view(request, pid):
     p_image = product.p_images.all()
     
     products = Product.objects.filter(category=product.category).exclude(pid=pid)
-
+    
 
     
     # creating reviews
@@ -101,10 +145,12 @@ def product_detail_view(request, pid):
         "reviews": reviews,
         "average_rating": average_rating,
         "review_form": review_form,
+        
 
     }
 
     return render(request, "core/product-detail.html", context)
+
 
 
 
@@ -123,6 +169,8 @@ def tag_list(request, tag_slug=None):
         "tag": tag,
     }
     return render(request, "core/tag.html", context)
+
+
 
 
 def ajax_add_review(request, pid):
@@ -157,6 +205,7 @@ def ajax_add_review(request, pid):
 
 
 
+
 def search_view(request):
     query = request.GET.get("q")
 
@@ -168,6 +217,8 @@ def search_view(request):
     }
 
     return render(request, "core/search.html", context)
+
+
 
 
 def filter_product(request):
@@ -234,8 +285,6 @@ def add_to_cart(request):
 
 
 
-
-
 def cart_view(request):
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
@@ -245,7 +294,9 @@ def cart_view(request):
     else:
         messages.warning(request, "your cart is empty")
         return redirect("core:index")
-    
+
+
+
 def delete_item_from_cart(request):
     product_id = str(request.GET["id"]) 
     if "cart_data_obj" in request.session:
@@ -261,6 +312,8 @@ def delete_item_from_cart(request):
 
     context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     return JsonResponse({"data": context, 'totalcartitems': len(request.session['cart_data_obj'])})
+
+
 
 def update_cart(request):
     product_id = str(request.GET["id"]) 
@@ -278,7 +331,6 @@ def update_cart(request):
 
     context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     return JsonResponse({"data": context, 'totalcartitems': len(request.session['cart_data_obj'])})
-
 
 
 
@@ -329,6 +381,9 @@ def checkout_view(request):
         #     active_adress+ None
         return render(request, "core/checkout.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount, 'adress':adress })
 
+
+
+@login_required
 def checkout_information_view(request):
     orders = CartOrder.objects.filter(user=request.user).order_by("-id")
     adressfield = Adress.objects.filter(user=request.user)
@@ -359,7 +414,7 @@ def checkout_information_view(request):
             user=user,
         )
         new_adress.save()
-        messages.success(request, "adress added successfuly")
+        messages.success(request, ".ادرس با موفقیت اضافه شد")
         return redirect("core:checkout")
     else:
         print("error")
@@ -376,12 +431,15 @@ def checkout_information_view(request):
 
     return render(request, 'core/checkout-information.html', context)
 
+
+
 def payment_compeleted_view(request):
     return render(request, 'core/payment-compeleted.thml')
 
+
+
 def payment_failed_view(request):
     return render(request, 'core/payment-failed.thml')
-
 
 
 
@@ -391,21 +449,23 @@ def customer_dashboard(request):
     adress = Adress.objects.filter(user=request.user)
     
     
+    
 
     if request.method == "POST":
         adress = request.POST.get("adress")
         mobile = request.POST.get("mobile")
 
-        new_adress = Adress.objects.create(
+        new_adress = Adress.objects.update(
             user=request.user,
             adress=adress,
             mobile=mobile,
+
         )
-        messages.success(request, "adress added successfuly")
+        messages.success(request, ".ادرس با موفقیت اضافه شد")
         return redirect("core:dashboard")
     else:
         print("error")
-    user_profile = Profile.objects.get(user=request.user)
+    # user_profile = Profile.objects.get(user=request.user)
 
 
 
@@ -416,7 +476,8 @@ def customer_dashboard(request):
     context = {
         "orders": orders,
         "adress": adress,
-        "user_profile": user_profile,
+        # "user_profile": user_profile,
+       
         
         
 
@@ -428,10 +489,7 @@ def customer_dashboard(request):
 
 
 
-
-
-
-
+@login_required
 def order_detail(request, id):
     order = CartOrder.objects.get(user=request.user, id=id)
     products = CartOrderItems.objects.filter(order=order)
@@ -439,6 +497,7 @@ def order_detail(request, id):
         "products": products
     }
     return render(request, "core/orderdetail.html", context)
+
 
 
 def make_adress_default(request):
@@ -449,9 +508,13 @@ def make_adress_default(request):
 
 
 
+@login_required
 def contact_view(request):
     return render(request, "core/contact.html")
 
+
+
+@login_required
 def ajax_contact_form(request):
     full_name = request.GET['full_name']
     email = request.GET['email']
@@ -468,6 +531,6 @@ def ajax_contact_form(request):
     )
     data = {
         "bool": True,
-        "message": "message sent successfully"
+        "message": ".نظر با موفقیت ارساب شد"
     }
     return JsonResponse({"data":data})

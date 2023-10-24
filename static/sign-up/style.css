@@ -58,15 +58,18 @@ button {
 }
 .form_btn {
   box-shadow: -5px -5px 10px #838282, 5px 5px 8px #babebc;
+  font-size: large;
 }
 .form_btn:active {
   box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+  font-size: large;
 }
 .overlay_btn {
   background-color: #8ecf6d;
   color: #fff;
   box-shadow: -5px -5px 10px #797967, 5px 5px 8px #2f2a29;
   border-radius: 20px;
+  font-size: large;
 }
 .sign-in-container {
   position: absolute;
@@ -157,6 +160,7 @@ form h1 {
   font-weight: bold;
   margin: 0;
   color: #000;
+  font-size: xxx-large;
 }
 
 p {

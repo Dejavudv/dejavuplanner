@@ -6,11 +6,12 @@
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 150px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Contact Us</h1>
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">ارتباط با ما</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
-                <p class="m-0 px-2">-</p>
-                <p class="m-0">Contact</p>
+                <p class="m-0"><a href="">سوال یا نیاز به راهنمایی داری؟</a></p>
+                &nbsp;
+                <p class="m-0"><a href="">نظر یا پیشنهادی داری؟</a></p>
+                
             </div>
         </div>
     </div>
@@ -20,7 +21,7 @@
     <!-- Contact Start -->
     <div class="container-fluid pt-5">
         <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">Contact For Any Queries</span></h2>
+            <h2 class="section-title px-5"><span class="px-2">  :فرم برای نظرت</span></h2>
         </div>
         <div class="row px-xl-5">
             <div class="col-lg-7 mb-5">
@@ -30,53 +31,48 @@
                     <form name="sentMessage" id="contactFormajax" novalidate="novalidate">
                         {% csrf_token %}
                         <div class="control-group">
-                            <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Your Name"
+                            <input type="text" class="form-control" id="full_name" name="full_name" placeholder="نام و نام خانوادگی"
                                 required="required" data-validation-required-message="Please enter your name" />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Your Email"
+                            <input type="email" class="form-control" id="email" name="email" placeholder="ایمیل"
                                 required="required" data-validation-required-message="Please enter your email" />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <input type="email" class="form-control" id="phone" name="telephone" placeholder="Your mobile"
+                            <input type="email" class="form-control" id="phone" name="telephone" placeholder="تلفن همراه"
                                 required="required" data-validation-required-message="Please enter your email" />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject"
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="موضوع"
                                 required="required" data-validation-required-message="Please enter a subject" />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <textarea class="form-control" rows="6" id="message" name="message" placeholder="Message"
+                            <textarea class="form-control" rows="6" id="message" name="message" placeholder="پیامت"
                                 required="required"
                                 data-validation-required-message="Please enter your message"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                         <div>
-                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Send
-                                Message</button>
+                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">ارسال نظر</button>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="col-lg-5 mb-5">
-                <h5 class="font-weight-semi-bold mb-3">Get In Touch</h5>
-                <p>Justo sed diam ut sed amet duo amet lorem amet stet sea ipsum, sed duo amet et. Est elitr dolor elitr erat sit sit. Dolor diam et erat clita ipsum justo sed.</p>
-                <div class="d-flex flex-column mb-3">
-                    <h5 class="font-weight-semi-bold mb-3">Store 1</h5>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+                <h5 class="font-weight-semi-bold mb-3">در ارتباط باش</h5>
+                <h3>"Join the Revolution: Personalized Planners for Your Bold Life"</h3>
+                <h5></h5>
+
+                    <h5 class="font-weight-semi-bold mb-3">پلنر دژاوو</h5>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>ارسال به کل ایران</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>dejavuplanner.dv@gmail.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>شماره تماس</p>
                 </div>
-                <div class="d-flex flex-column">
-                    <h5 class="font-weight-semi-bold mb-3">Store 2</h5>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                    <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
-                </div>
+                
             </div>
         </div>
     </div>

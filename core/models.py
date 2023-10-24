@@ -277,7 +277,7 @@ class Adress(models.Model):
         verbose_name_plural = "adress"
 
     def __str__(self):
-        return self.adress
+        return self.postcode
 
 
 
@@ -360,7 +360,6 @@ class Wishlist(models.Model):
     def get_rating(self):
         return self.rating
     
-
 
 
 

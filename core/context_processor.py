@@ -9,6 +9,7 @@ def default(request):
     tagcategory = tagCategory.objects.all()
     colorcategory = colorCategory.objects.all()
     languagecategory = languageCategory.objects.all()
+    categorynav = Category.objects.all()
 
     vendors = Vendor.objects.all()
     try:
@@ -19,6 +20,7 @@ def default(request):
 
     return {
         'categories' : categories,
+        'categorynav' : categorynav,
         'vendors' : vendors,
         'typecategory': typecategory,
         'sizecategory': sizecategory,

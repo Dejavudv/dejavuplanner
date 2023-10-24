@@ -11,9 +11,8 @@
                     <h1 class="font-weight-semi-bold text-uppercase mb-3">محصولات</h1>
                 {% endif %}    
                 <div class="d-inline-flex">
-                    <p class="m-0"><a href="{% url 'core:index' %}">Home</a></p>
-                    <p class="m-0 px-2">-</p>
-                    <p class="m-0">{{query}}</p>
+                    
+                    <!-- <p class="m-0">{{query}}</p> -->
                 </div>
                 <div class="d-inline-flex">
                     <p class="p-left">{{products.count}} محصول </p>
@@ -36,15 +35,15 @@
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">{{ p.title }}</h6>
-                            <p class="text-truncate mb-3">category: {{ p.category }}</p>
+                            <p class="text-truncate mb-3">دسته بندی: {{ p.category }}</p>
 
                             <div class="d-flex justify-content-center">
                                 <h6>{{ p.price }} <sup> {{ p.get_precentage|floatformat:0 }}%</sup> </h6><h6 class="text-muted ml-2"><del>{{ p.old_price }}</del></h6>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>جزییات</a>
+                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>افزودن به سبد خرید</a>
                         </div>
                     </div>
                 </div>

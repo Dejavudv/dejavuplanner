@@ -9,6 +9,9 @@ from core.models import *
 
 # User = settings.AUTH_USER_MODEL
 
+
+# register view
+
 def register_view(request):
 
 
@@ -18,7 +21,7 @@ def register_view(request):
         if form.is_valid():
             new_user = form.save()
             username = form.cleaned_data.get("username")
-            messages.success(request, f"hey {username}, your account was created successfully")
+            messages.success(request,  "اکانت شما با موفقیت ساخته شد")
             new_user = authenticate(username = form.cleaned_data["email"], 
                                     password = form.cleaned_data["password1"]
             )
@@ -37,9 +40,11 @@ def register_view(request):
     return render(request, "userauths/sign-up.html", context)
 
 
+
+# login view
 def login_view(request):
     if request.user.is_authenticated:
-        messages.warning(request, f"hey you are already logged in")
+        messages.warning(request, f".قبلا ورود کرده اید")
         return redirect('core:index')
     
     if request.method == "POST":
@@ -56,7 +61,7 @@ def login_view(request):
                 return redirect("core:index")
             
             else:
-                messages.warning(request, "user doesnt exist create an account.")
+                messages.warning(request, ".اکانتی وجود نداره لطفا ثبت نام کنید")
                 # return redirect("userauths/sign-up.html")
         except:
             messages.warning(request, f"user with {email} does not exist")
@@ -72,14 +77,18 @@ def login_view(request):
     return render(request, "userauths/sign-in.html", context)
 
 
+
+# loggin out view
 def logout_view(request):
     logout(request)
-    messages.success(request, "you are logged out")
+    messages.success(request, ".با موفقیت از اکانت خود خارج شدید")
 
     return redirect("core:index")
     # return render(request, "userauths/sign-in.html")
 
 
+
+# update profile
 def profile_update(request):
     form = ProfileForm()
     user_profile = Profile.objects.get(user=request.user)
@@ -97,7 +106,7 @@ def profile_update(request):
             adress=adress,
             mobile=mobile,
         )
-        messages.success(request, "adress added successfuly")
+        messages.success(request, "آدرس با موفقیت اضافه شد")
         return redirect("core:dashboard")
     else:
         print("error")

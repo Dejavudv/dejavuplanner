@@ -10,6 +10,11 @@ class ProfileAdmin(admin.ModelAdmin):
 class ContactUsAdmin(admin.ModelAdmin):
     list_display = ['full_name', 'email', 'subject']
 
+class JobOfferAdmin(admin.ModelAdmin):
+    list_display = ['about', 'email']
+
 admin.site.register(User,UserAdmin)
 admin.site.register(Profile,ProfileAdmin)
 admin.site.register(ContactUs,ContactUsAdmin)
+admin.site.register(JobOffer,JobOfferAdmin)
+

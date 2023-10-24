@@ -11,6 +11,7 @@
                     <p class="m-0 px-2">-</p>
                     <p class="m-0">{{category.title}}</p>
                 </div>
+                &nbsp;
                 <div class="d-inline-flex">
                     <p class="p-left">{{products.count}} محصول </p>
                 </div>
@@ -38,13 +39,13 @@
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>جزییات</a>
                             <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{p.id}}">
                             <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
                             <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
                             <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
                             <input type="hidden" class="product-title-{{p.id}}" value="{{p.title}}">
-                            <button  class="btn btn-sm text-dark p-0 add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</button>
+                            <button  class="btn btn-sm text-dark p-0 add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn"><i class="fas fa-shopping-cart text-primary mr-1"></i>افزودن به سبد خرید</button>
                         </div>
                     </div>
                 </div>

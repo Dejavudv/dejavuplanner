@@ -14,7 +14,8 @@
   <meta charset="UTF-8">
   <title> sign-up / sign-in form</title>
   <link rel="stylesheet" href="{% static 'sign-up/style.css' %}">
-
+  <link href="{% static 'img/faviconimage.png' %}" rel="icon">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -49,7 +50,8 @@
         <!-- <input type="text" required name="" placeholder="Name"> -->
         <input type="email" required name="email" placeholder="Email">
         <input type="password" required name="password" placeholder="Password">
-        <button type="submit" class="form_btn">Sign in</button>
+        <button type="submit" class="form_btn">ورود به اکانت</button>
+        <a href="{% url 'userauths:sign-up' %}"><h6 >قبلا ثبت نام کردی؟</h6></a>
       </form>
     </div>
     <div class="sign-in-container">
@@ -61,8 +63,8 @@
       </div>
       <div class="overlay-right">
         <h1>Hello, Friend</h1>
-        <p>Enter your personal details and start journey with us</p>
-        <button id="signUp" class="overlay_btn">Sign in</button>
+        
+        <button id="signUp" class="overlay_btn">ورود</button>
       </div>
     </div>
   </div>
