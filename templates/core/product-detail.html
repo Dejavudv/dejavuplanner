@@ -49,10 +49,11 @@
                 <br>
                 <br>
                 
+                
             </div>
             
             <div class="col-lg-7 pb-5">
-                <h1 class="font-weight-semi-bold">{{product.title}}</h1>
+                <h1 class="font-weight-semi-bold" style="text-align: right;">{{product.title}}</h1>
                 <div class="d-flex mb-3">
                     
                     <small class="pt-1"> {{average_rating.rating|floatformat}} stars </small>
@@ -66,12 +67,58 @@
                 <h4 class="current-product-price-{{ product.id }}">{{ product.price }} </h4><h6 class="text-muted ml-2"><del>{{ product.old_price }} </del><sup> {{ product.get_precentage|floatformat:0 }}%</sup></h6><span>تومن</span>
                 
                 <!-- add description -->
-                <p class="mb-4"></p>
+                <p class="mb-4" style="text-align: right;">{{product.description|safe}}</p>
                 
                 
-                <div>
-                    <p>{{product.description|safe}}</p>
+                
+                    
+                
+                
+
+                
+
+                <div id="target" class="divScrollDiv" style="display: inline-block; text-align: right; width: 100%; border: 1px solid rgb(143, 128, 150); height: 300px; overflow: scroll; text-align: right;">
+                    
+                    
+                    <div class="dropdown" data-control="checkbox-dropdown" style="text-align: right;">
+                        <label class="dropdown-label">برگه ایی که دوست داری به پلنرت اضافه کنی رو انتخاب کن</label>
+                        
+                        <div class="dropdown-list" style="
+                            text-align: right;
+                            display: flex;
+                            flex-direction: column;
+                            
+                            justify-content: space-between;
+                            ">
+                            
+                            
+                            <label class="dropdown-option">
+                            {% for ap in addproduct %}
+                            <div class="d-flex align-items-center mb-4 pt-2" >
+                                <p style="text-align: right;">{{ap.title}}</p>
+                                <div>
+                                <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ap.id}}">
+                                <input type="hidden" class="add-product-pid-{{ap.id}}" value="{{ap.pid}}">
+                                <input type="hidden" class="add-product-image-{{ap.id}}" value="{{ap.image.url}}">
+                                <input type="hidden" class="add-product-id-{{ap.id}}" value="{{ap.id}}">
+                                <input type="hidden" class="add-product-title-{{ap.id}}" value="{{ap.title}}">
+                                <input type="hidden" class="add-product-price-{{ap.id}}" value="{{ap.price}}">
+                                
+                                &nbsp;
+                                <button  class="btn btn-sm text-dark p-0 add-product-to-cart-btn" data-index1="{{ ap.id }}" id="add-to-cart-btn">افزودن</button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            </label>
+                            
+                 
+                        </div>
+                    </div>
+                    
                 </div>
+
+
+
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
@@ -127,16 +174,16 @@
             <div class="col">
                 <div class="nav nav-tabs justify-content-center border-secondary mb-4">
                     <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1"> توضیحات محصول </a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">مشخصات محصول</a>
+                    <!-- <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">مشخصات محصول</a> -->
                     <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">نظرات ({{reviews.count}})</a>
                 </div>
-                <div class="tab-content">
+                <div class="tab-content" style="text-align: right;">
                     <div class="tab-pane fade show active" id="tab-pane-1">
                         <h4 class="mb-3">توضیحات محصول</h4>
                         <p>{{product.more_description|safe}}</p>
                         <p></p>
                     </div>
-                    <div class="tab-pane fade" id="tab-pane-2">
+                    <!-- <div class="tab-pane fade" id="tab-pane-2">
                         <h4 class="mb-3">مشخصات محصول</h4>
                         <p></p>
                         <div class="row">
@@ -160,7 +207,7 @@
                                   </ul> 
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     
                     <div class="tab-pane fade" id="tab-pane-3">
                         

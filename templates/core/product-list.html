@@ -17,6 +17,9 @@
                 <h4 class="m-10">با استفاده از فیلتر ها مناسب ترین محصول را برای خود انتخاب کنید</h4>
             </div>
             &nbsp;
+            <h6 class="m-10">.توجه داشته باشید که صفحات پلنر خود را خودتون انتخاب میکنید</h6>
+
+            &nbsp;
             &nbsp;
             <div class="d-inline-flex">
                 <p class="p-left">{{products.count}} محصول </p>
@@ -47,19 +50,19 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="border-bottom mb-4 pb-4">
-                    <h5 class="font-weight-semi-bold mb-4">فعلا نمیدونم</h5>
+                <!-- <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">هدف</h5>
                     <div class="mb-5">
-                        {% for v in vendors %}
+                        {% for tg in tagcategory %}
                         <ul>
                             <li>
-                                <input type="checkbox" data-filter="Vendor" class="formxc filter-checkbox" name="checkbox" id="exampleCheckbox2" value="{{v.id}}">
-                                <label class="formxc filter-checkbox" for="exampleCheckbox2">{{v.title}}</label>
+                                <input type="checkbox" data-filter="tagcategory" class="formxc filter-checkbox" name="checkbox" id="exampleCheckbox5" value="{{tg.id}}">
+                                <label class="formxc filter-checkbox" for="exampleCheckbox5">{{tg.title}}</label>
                             </li>
                         </ul>
                         {% endfor %}
                     </div>
-                </div>
+                </div> -->
 
                 <div class="border-bottom mb-4 pb-4">
                     <h5 class="font-weight-semi-bold mb-4">نوع دفتر </h5>
@@ -87,19 +90,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="border-bottom mb-4 pb-4">
-                    <h5 class="font-weight-semi-bold mb-4">هدف</h5>
-                    <div class="mb-5">
-                        {% for tg in tagcategory %}
-                        <ul>
-                            <li>
-                                <input type="checkbox" data-filter="tagcategory" class="formxc filter-checkbox" name="checkbox" id="exampleCheckbox5" value="{{tg.id}}">
-                                <label class="formxc filter-checkbox" for="exampleCheckbox5">{{tg.title}}</label>
-                            </li>
-                        </ul>
-                        {% endfor %}
-                    </div>
-                </div>
+                
                 <div class="border-bottom mb-4 pb-4">
                     <h5 class="font-weight-semi-bold mb-4">رنگ</h5>
                     <div class="mb-5">
@@ -107,7 +98,9 @@
                         <ul>
                             <li>
                                 <input type="checkbox" data-filter="colorcategory" class="formxc filter-checkbox" name="checkbox" id="exampleCheckbox6" value="{{cc.id}}">
-                                <label class="formxc filter-checkbox" for="exampleCheckbox6">{{cc.title}}</label>
+                                <!-- <label class="formxc filter-checkbox" for="exampleCheckbox6">{{cc.title}}</label> -->
+                                <img style="height: 20px; width: 20px; border-radius: 100px;" src="{{ cc.image.url }}" alt="">
+
                             </li>
                         </ul>
                         {% endfor %}

@@ -3,7 +3,7 @@ from core.models import *
 
 
 def default(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().exclude(id=6)
     typecategory = typeCategory.objects.all()
     sizecategory = sizeCategory.objects.all()
     tagcategory = tagCategory.objects.all()

@@ -69,14 +69,11 @@ class Category(models.Model):
 class typeCategory(models.Model):
     typecid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "cat", alphabet = "abcdefgh12345")
     title = models.CharField(max_length=100, default="planner")
-    image = models.ImageField(upload_to="typecategory", default="category.jpg", blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "typeCategories"
 
-    def typecategory_image(self):
-        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
-    
+
     def __str__(self):
         return self.title
     
@@ -84,14 +81,11 @@ class typeCategory(models.Model):
 class sizeCategory(models.Model):
     sizecid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "cat", alphabet = "abcdefgh12345")
     title = models.CharField(max_length=100, default="planner")
-    image = models.ImageField(upload_to="sizecategory", default="category.jpg" , blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "sizeCategories"
 
-    def sizecategory_image(self):
-        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
-    
+   
     def __str__(self):
         return self.title
     
@@ -99,14 +93,11 @@ class sizeCategory(models.Model):
 class tagCategory(models.Model):
     tagcid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "cat", alphabet = "abcdefgh12345")
     title = models.CharField(max_length=100, default="planner")
-    image = models.ImageField(upload_to="tagcategory", default="category.jpg" , blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "tagCategories"
 
-    def tagcategory_image(self):
-        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
-    
+
     def __str__(self):
         return self.title
     
@@ -129,14 +120,11 @@ class colorCategory(models.Model):
 class languageCategory(models.Model):
     languagecid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "cat", alphabet = "abcdefgh12345")
     title = models.CharField(max_length=100, default="planner")
-    image = models.ImageField(upload_to="languagecategory", default="category.jpg" , blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "languageCategories"
 
-    def languagecategory_image(self):
-        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
-    
+
     def __str__(self):
         return self.title
 
@@ -146,7 +134,6 @@ class languageCategory(models.Model):
 class Vendor(models.Model):
     vid = ShortUUIDField(unique=True, length= 10, max_length = 30, prefix= "ven", alphabet = "abcdefgh12345")
     title = models.CharField(max_length=100, default="dv")
-    image = models.ImageField(upload_to = user_directory_path, default="vendor.jpg")
     description = models.TextField(null=True, blank=True, default="i'm a amazing vendor")
 
     adress = models.CharField(max_length=100, default="123 main street, london")
@@ -159,15 +146,13 @@ class Vendor(models.Model):
 
 
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
 
     class Meta:
         verbose_name_plural = "Vendors"
 
-    def vendor_image(self):
-        return mark_safe('<img src = "%s"  width = "50" height="50" />' % (self.image.url))
-    
+
     def __str__(self):
         return self.title
     
@@ -180,12 +165,12 @@ class Product(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
-    Vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
-    typecategory = models.ForeignKey(typeCategory, on_delete=models.SET_NULL, null=True, related_name="typecategory")
-    sizecategory = models.ForeignKey(sizeCategory, on_delete=models.SET_NULL, null=True, related_name="sizecategory")
-    tagcategory = models.ForeignKey(tagCategory, on_delete=models.SET_NULL, null=True, related_name="tagcategory")
-    colorcategory = models.ForeignKey(colorCategory, on_delete=models.SET_NULL, null=True, related_name="colorcategory")
-    languagecategory = models.ForeignKey(languageCategory, on_delete=models.SET_NULL, null=True, related_name="languagecategory")
+    Vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, blank=True)
+    typecategory = models.ForeignKey(typeCategory, on_delete=models.SET_NULL, blank=True, null=True, related_name="typecategory")
+    sizecategory = models.ForeignKey(sizeCategory, on_delete=models.SET_NULL, blank=True, null=True, related_name="sizecategory")
+    tagcategory = models.ForeignKey(tagCategory, on_delete=models.SET_NULL, blank=True, null=True, related_name="tagcategory")
+    colorcategory = models.ForeignKey(colorCategory, on_delete=models.SET_NULL, blank=True, null=True, related_name="colorcategory")
+    languagecategory = models.ForeignKey(languageCategory, on_delete=models.SET_NULL, blank=True, null=True, related_name="languagecategory")
 
     # sub_product = models.ForeignKey(Sub_Product, on_delete=models.SET_NULL, null=True)
     # products = models.ManyToManyField(Sub_Product)
@@ -197,7 +182,7 @@ class Product(models.Model):
     # information = models.TextField(null=True, blank=True, default="this is the information part")
     description = RichTextUploadingField(null=True, blank=True, default="this is the product")
     more_description = RichTextUploadingField(null=True, blank=True, default="this is more product")
-    information = RichTextUploadingField(null=True, blank=True, default="this is the information part")
+    # information = RichTextUploadingField(null=True, blank=True, default="this is the information part")
 
     price = models.IntegerField()
     old_price = models.IntegerField()
@@ -264,7 +249,7 @@ class Adress(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     adress = models.CharField(max_length=100, null= True)
     mobile = models.CharField(max_length=100, null= True)
-
+    # created_at = models.DateTimeField(auto_now_add=True)
     firstname = models.CharField(max_length=100, null= True)
     lastname = models.CharField(max_length=100, null= True)
     postcode = models.CharField(max_length=100, null= True)
@@ -287,12 +272,13 @@ class Adress(models.Model):
 
 class CartOrder(models.Model):
     
-    adress = models.ForeignKey(Adress, on_delete=models.SET_NULL, null=True)
+    # adress = models.ForeignKey(Adress, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete= models.CASCADE)
     price = models.IntegerField()
     paid_status = models.BooleanField(default=False)
     order_date = models.DateTimeField(auto_now_add=True)
     product_status = models.CharField(choices= STATUS_CHOICE, max_length=30, default="processing")
+    code = models.CharField(default="کد رهگیری سفارش بزودی قرار خواهد گرفت", max_length=200)
     class Meta:
         verbose_name_plural = "Cart Order"
 

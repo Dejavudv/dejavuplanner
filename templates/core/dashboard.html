@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5 border-right">
+        <!-- <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">پروفایل</h4>
@@ -59,20 +59,13 @@
                     <p>{{a.adress}}</p>
                     <p>{{a.mobile}}</p>
                     
-                    <!-- {% if a.status %}
-                        <i data-adress-id="{{a.id}}" class="fas fa-check-circle check check{{a.id}}" ></i>
-                        <button data-adress-id="{{a.id}}" style="display: none;" class="btn btn-primary font-weight-bold make-default-adress button{{a.id}} action_btn">make default </button>
-                    {% else %}
-                        <i data-adress-id="{{a.id}}" class="fas fa-check-circle check check{{a.id}} " style="display: none;"></i>
-                        <button data-adress-id="{{a.id}}" class="btn btn-primary font-weight-bold make-default-adress button{{a.id}} action_btn">make default </button>
-                        
-                    {%endif%} -->
+                    
                     <br>
                 </div>
                 {% endfor %}
                 
             </div>
-        </div>
+        </div> -->
         <div class="col-md-4">
             <!-- <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
@@ -89,6 +82,7 @@
                             <th>وضیعت پرداخت</th>
                             <th>جمع مبلغ</th>
                             <th>جزییات سفارش</th>
+                            <th>کد رهگیری</th>
                         </tr>
 
                     </thead>
@@ -106,7 +100,7 @@
                             
                             <td>{{o.price}}</td>
                             <td><a href="{% url 'core:order-detail' o.id %}">مشاهده</a></td>
-
+                            <td>{{o.code}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

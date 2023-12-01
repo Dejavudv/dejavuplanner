@@ -21,22 +21,22 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ["title", "category_image"]
+    list_display = ["title", "category_image", "id"]
 
 class typeCategoryAdmin(admin.ModelAdmin):
-    list_display = ["title", "typecategory_image"]
+    list_display = ["title"]
 class sizeCategoryAdmin(admin.ModelAdmin):
-    list_display = ["title", "sizecategory_image"]
+    list_display = ["title"]
 class tagCategoryAdmin(admin.ModelAdmin):
-    list_display = ["title", "tagcategory_image"]
+    list_display = ["title"]
 class colorCategoryAdmin(admin.ModelAdmin):
     list_display = ["title", "colorcategory_image"]
 class languageCategoryAdmin(admin.ModelAdmin):
-    list_display = ["title", "languagecategory_image"]
+    list_display = ["title"]
 
 
 class VendorAdmin(admin.ModelAdmin):
-    list_display = ["title", "vendor_image"]
+    list_display = ["title"]
 
 
 class CartOrderAdmin(admin.ModelAdmin):

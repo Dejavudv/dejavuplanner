@@ -21,7 +21,7 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     # product = Product.objects.all().order_by("-id")
     products = Product.objects.filter(product_status= "published",featured = True)
-    category = Category.objects.all()
+    category = Category.objects.all().exclude(id=6)
     categorynav = Category.objects.all()
     
 
@@ -120,7 +120,8 @@ def product_detail_view(request, pid):
     p_image = product.p_images.all()
     
     products = Product.objects.filter(category=product.category).exclude(pid=pid)
-    
+    addproduct = Product.objects.filter(product_status= "disabled")
+
 
     
     # creating reviews
@@ -139,6 +140,7 @@ def product_detail_view(request, pid):
 
     context = {
         "product": product,
+        "addproduct": addproduct,
         "make_review": make_review,
         "p_image": p_image,
         "products": products,
@@ -292,7 +294,7 @@ def cart_view(request):
             cart_total_amount += int(item['qty']) * int(item['price'])
         return render(request, "core/cart.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     else:
-        messages.warning(request, "your cart is empty")
+        messages.warning(request, "سبد خرید شما خالی است")
         return redirect("core:index")
 
 
